@@ -26,10 +26,6 @@ export const generateHash = ({ plainText = "", salt = process.env.HASH_SALT } = 
  * @returns {boolean} True if match, false otherwise.
  */
 export const compareHash = ({ plainText = "", hashedValue = "" } = {}) => {
-
     const match = bcrypt.compareSync(plainText , hashedValue);
-    console.log("Password match result:", match);
     return match;
-    
-
 }

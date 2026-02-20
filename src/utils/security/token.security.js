@@ -27,6 +27,7 @@ export const tokenTypes = {
 export const decodeToken = async ({ autharization = "", tokenType = tokenTypes.access } = {}) => {
     const [Bearer, token] = autharization.split(" ");
     if (!Bearer || !token) {
+        console.error("No token provided in authorization header:", autharization);
         throw new Error("In-valid authorization");
     }
     let accessSignature;

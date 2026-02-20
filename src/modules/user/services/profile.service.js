@@ -69,9 +69,7 @@ export const shareProfile = asyncHandler(
     async (req, res, next) => {
         const { profileId } = req.params
         let user = null
-
         if (profileId === req.user._id.toString()) {
-
             user = req.user
             return next(new Error("you can not share your profile with yourself"))
         }

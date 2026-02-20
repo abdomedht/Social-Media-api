@@ -52,7 +52,8 @@ const sendCode = async ({ data, subject = "confirm-email" } = {}) => {
 
     const emailOtp = customAlphabet('0123456789', 5)();
     const html = emailOtpTemplate(emailOtp);
-    const hash = generateHash({ planText: `${emailOtp}` });
+    const hash = generateHash({ plainText: `${emailOtp}` });
+    console.log("Generated OTP:", emailOtp, "Hash:", hash);
     let updateData = {};
     let filter = {};
 
@@ -66,7 +67,7 @@ const sendCode = async ({ data, subject = "confirm-email" } = {}) => {
             filter = { tempEmail: email };
             break;
         case emailSubjects.resetPassword:
-            updateData = { fogetPasswordOtp: hash, confirmEmail: false };
+            updateData = { forgetPasswordOtp: hash, confirmEmail: false };
             filter = { email };
             break;
         default:

@@ -11,8 +11,6 @@ import { emailEvent } from "../../../utils/events/email.event.js";
 import { OAuth2Client } from 'google-auth-library';
 import { providerTypes } from "../../../DB/model/User.model.js";
 import { findOne, updateOne } from "../../../DB/dbService.js";
-
-
 /**
  * Logs in a user with email and password.
  * @function
@@ -35,7 +33,6 @@ export const login = asyncHandler(
         const refreshToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN, expiresIn: '1y' })
         return successResponse({ res: res, message: "login success", status: 200, data: { accessToken, refreshToken } })
     }
-
 )
 /**
  * Logs in a user with Google OAuth2.
@@ -50,7 +47,7 @@ export const loginWithGmail = asyncHandler(
 
         const ticket = await client.verifyIdToken({
             idToken,
-            audience: process.env.CLENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+            audience: process.env.CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
             // Or, if multiple clients access the backend:
             //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
         });
@@ -58,7 +55,7 @@ export const loginWithGmail = asyncHandler(
         const userid = payload['sub'];
         // If the request specified a Google Workspace domain:
         // const domain = payload['hd'];
-        const { email_verified, email, name, picture, provider } = payload
+        const { email_verified, email, name, picture } = payload
         console.log(email_verified, email, name, picture);
 
         console.log(payload)
@@ -80,8 +77,7 @@ export const loginWithGmail = asyncHandler(
  */
 export const refreshToken = asyncHandler(
     async (req, res, next) => {
-        const user = await decodeToken({autharization:req.headers.autharization,tokenType:tokenTypes.refresh})
-
+        const user = await decodeToken({authorization:req.headers.authorization,tokenType:tokenTypes.refresh})
         const accessToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN, expiresIn: '1h' })
         const refreshToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN, expiresIn: '1y' })
         return successResponse({ res: res, message: "success", status: 200, data: { accessToken, refreshToken } })
@@ -92,18 +88,15 @@ export const refreshToken = asyncHandler(
  * Sends a password reset OTP to the user's email.
  * @function
  */
-export const fodgetPassword = asyncHandler(
+export const forgetPassword = asyncHandler(
     async (req, res, next) => {
         const { email } = req.body;
         const user = await findOne({ model: userModel, filter: { email, isDeleted: false } })
         if (!user) {
             return next(new Error("email not found", { cause: 404 }))
         }
-
-
         emailEvent.emit("sendEmailForgetPassword", { email })
-
-        return successResponse({ res })
+        return successResponse({ res, message: "reset code sent to your email", status: 200 })
     }
 
 )
@@ -113,24 +106,17 @@ export const fodgetPassword = asyncHandler(
  */
 export const resetPassword = asyncHandler(
     async (req, res, next) => {
-        const { email, password, code } = req.body;
-        const user = await userModel.findOne({ email, isDeleted: false })
+        const { email, password , code } = req.body;
+        const user = await findOne({ model: userModel, filter: { email, isDeleted: false } })
         if (!user) {
             return next(new Error("email not found", { cause: 404 }))
         }
-        console.log(user.fogetPasswordOtp);
-
-
-        if (!compareHash({ planText: code, hashedValue: user.fogetPasswordOtp })) {
+        if (!user.forgetPasswordOtp || !compareHash({ plainText: code, hashedValue: user.forgetPasswordOtp })) {
             return next(new Error("in-valid OTP", { cause: 400 }))
         }
-        const hashedPassword = generateHash({ planText: password })
-
-        await updateOne({ model: userModel, filter: { email }, data: { password: hashedPassword, confirmEmail: true, changeCredentialsTime: Date.now(), $unset: { emailOtp: 0, fogetPasswordOtp: 0 } } })
-
-
-
-        return successResponse({ res })
+        const hashedPassword = generateHash({ plainText: password })
+        await updateOne({ model: userModel, filter: { email }, data: { password: hashedPassword, confirmEmail: true, changeCredentialsTime: Date.now(), emailOtp: null, forgetPasswordOtp: null } })
+        return successResponse({ res, message: "password reset successfully, you can login now", status: 200 })
     }
 
 )

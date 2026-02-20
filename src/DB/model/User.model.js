@@ -38,8 +38,7 @@ const userSchema = new Schema({
     },
     emailOtp: String,
     password: { type: String },
-    fogetPasswordOtp:String,
-
+    forgetPasswordOtp:String,
     confirmEmail: {
         type: Boolean,
         default: false
