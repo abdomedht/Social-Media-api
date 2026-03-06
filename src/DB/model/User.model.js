@@ -38,7 +38,7 @@ const userSchema = new Schema({
     },
     emailOtp: String,
     password: { type: String },
-    forgetPasswordOtp:String,
+    forgetPasswordOtp: String,
     confirmEmail: {
         type: Boolean,
         default: false
@@ -62,8 +62,8 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    image: String,
-    coverImage: [String],
+    image: { secure_url: String, public_id: String },
+    coverImage: [{ secure_url: String, public_id: String }],
     phone: String,
     dateOfBrith: Date,
     changeCredentialsTime: Date,
@@ -71,7 +71,7 @@ const userSchema = new Schema({
     tempEmailOtp: String,
     viewers: [
         {
-           userId: { type: Schema.Types.ObjectId, ref: "User" },
+            userId: { type: Schema.Types.ObjectId, ref: "User" },
             time: { type: Date, default: Date.now }
         }
     ],

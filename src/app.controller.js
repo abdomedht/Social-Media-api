@@ -4,12 +4,14 @@
  * @param {import('express').Express} app - The Express app instance.
  * @param {Function} express - The Express module.
  */
+import Path from 'node:path'
 import { connectDB } from './DB/connection.js'
 import authController from './modules/auth/auth.controller.js'
 import user from './modules/user/user.controller.js'
 import { globalErrorHandling } from './utils/response/error.response.js'
 const bootstrap = (app, express) => {
     app.use(express.json())
+    app.use('/uploads',express.static(Path.resolve('./src/uploads')))
     app.get("/", (req, res, next) => {
         return res.status(200).json({ message: "Welcome in node.js project powered by express and ES6" })
     })

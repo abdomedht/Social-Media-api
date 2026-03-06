@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * User profile services for profile viewing, sharing, and email update.
  * @module modules/user/services/profile.service
@@ -52,6 +53,7 @@ import { findOneAndUpdate, findOne, updateOne } from "../../../DB/dbService.js"
 import { userModel } from "../../../DB/model/User.model.js";
 import { emailEvent } from "../../../utils/events/email.event.js"
 import { compareHash, generateHash } from "../../../utils/security/hash.security.js";
+import { cloud } from "../../../utils/multer/cloudinary.multer.js";
 /**
  * Gets the authenticated user's profile.
  * @function
@@ -119,6 +121,7 @@ export const updatePassword = asyncHandler(
         console.log("update password", req.user._id, password);
         const user = await updateOne({
             model: userModel, filter: { _id: req.user._id },
+            // eslint-disable-next-line no-undef
             data: { changeCredentialsTime: Date.now(), password: generateHash({ plainText: password, salt: process.env.HASH_SALT }) }
         })
         return user ? successResponse({ res, message: "hello", data: { user } }) : next(new Error("user not found"))
@@ -126,13 +129,64 @@ export const updatePassword = asyncHandler(
 )
 export const updateProfile = asyncHandler(
     async (req, res, next) => {
-        
+
         const user = await findOneAndUpdate({
             model: userModel, filter: { _id: req.user._id },
             data: req.body,
             options: { new: true }
         })
         return user ? successResponse({ res, message: "profile updated", data: { user } }) : next(new Error("user not found"))
-    }   
+    }
 )
-
+export const updateProfileImage = asyncHandler(
+    async (req, res, next) => {
+        // eslint-disable-next-line no-undef
+        if (!req.file || req.file.length === 0) {
+            return next(new Error("images are required"));
+        }
+        const { secure_url, public_id } = await cloud.uploader.upload(
+            req.file.path,
+            {
+                folder: `${process.env.APP_Name}/user/${req.user._id}/profile`
+            }
+        )
+        const user = await findOneAndUpdate({
+            model: userModel,
+            filter: { _id: req.user._id },
+            data: { image: { secure_url, public_id } },
+            options: { new: false }
+        })
+        if (user.image?.public_id) {
+            cloud.uploader.destroy(user.image.public_id)
+        }
+        return successResponse({ res, message: "profile image updated", data: { user } })
+    }
+)
+export const updateCoverImage = asyncHandler(
+    async (req, res, next) => {
+        if (!req.files || req.files.length === 0) {
+            return next(new Error("images are required"));
+        }
+        const images = [];
+        for (const file of req.files) {
+            const { secure_url, public_id } = await cloud.uploader.upload(
+                file.path,
+                {
+                    folder: `${process.env.APP_Name}/user/${req.user._id}/coverImage`
+                }
+            );
+            images.push({ secure_url, public_id });
+        }
+        const user = await findOneAndUpdate({
+            model: userModel,
+            filter: { _id: req.user._id },
+            data: { coverImage: images },
+            options: { new: true }
+        });
+        return successResponse({
+            res,
+            message: "cover images updated",
+            data: { user }
+        });
+    }
+);
