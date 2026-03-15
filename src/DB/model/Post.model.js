@@ -24,8 +24,6 @@ const postSchema = new Schema({
 },
     { timestamps: true }
 )
-/**
- * The User mongoose model.
- * @type {mongoose.Model}
- */
+
+
 export const postModel = mongoose.model.User || model('Post', postSchema)
