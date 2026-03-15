@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.9.0",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
@@ -18,8 +19,9 @@
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
+    "multer": "^2.0.2",
     "nanoid": "^5.0.9",
-    "nodemailer": "^6.10.0"
+    "nodemailer": "^8.0.1"
   },
   "description": "",
   "devDependencies": {
