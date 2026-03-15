@@ -8,7 +8,7 @@ import { profile, shareProfile, updateEmail, resetEmail, updatePassword, updateP
 import { authentication } from '../../middleware/auth.middleware.js';
 import { validation } from '../../middleware/validation.middleware.js';
 import { shareProfileValidation, updateEmailV, resetEmailV, updatePasswordV, updateProfileV, updateProfileImageV } from './user.validation.js';
-import { fileValidations, uploadFileDisk } from '../../utils/multer/local.multer.js';
+import { fileValidations } from '../../utils/multer/local.multer.js';
 import { uploadCloudFile } from '../../utils/multer/cloud.multe.js';
 
 const router = Router();
@@ -20,5 +20,5 @@ router.patch('/profile/reset-email', validation(resetEmailV), authentication, re
 router.patch('/profile/update-password', validation(updatePasswordV), authentication, updatePassword);
 router.patch('/profile/update-profile', validation(updateProfileV), authentication, updateProfile);
 router.patch('/profile/update-profile/image', validation(updateProfileImageV), authentication, uploadCloudFile( fileValidations.image).single('image'), updateProfileImage);
-router.patch('/profile/update-profile/image/cover', validation(updateProfileImageV), authentication, uploadCloudFile( fileValidations.image).array('image', 3), updateCoverImage);
+router.patch('/profile/update-profile/image/cover', validation(updateProfileImageV), authentication, uploadCloudFile( fileValidations.image).array('attachment', 3), updateCoverImage);
 export default router;

@@ -34,11 +34,6 @@ export const generalFeilds = {
 export const validation = (Schema) => {
     return (req, res, next) => {
         const inputData = { ...req.body, ...req.params, ...req.query };
-        if (req.file) {
-            inputData.file = req.file;
-        } else if (req.files?.length) {
-            inputData.files = req.files;
-        }
         const validationResult = Schema.validate(inputData, { abortEarly: true })
         if (validationResult.error) {
             return res.status(400).json({ message: "validation error", details: validationResult.error.details })

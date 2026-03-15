@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * Registration and email confirmation services for users.
  * @module modules/auth/service/registration.service
@@ -24,7 +25,6 @@ export const signup = asyncHandler(
         emailEvent.emit('sendEmail', {email: email} )
         return successResponse({ res: res, message: "sign-up success", status: 201, data: user._id })
     }
-
 )
 /**
  * Confirms a user's email using OTP code.
@@ -45,11 +45,6 @@ export const confirmEmail = asyncHandler(
             await updateOne({ model: userModel, filter: { email }, data: { confirmEmail: true, $unset: { emailOtp: 0 } } })
             return successResponse({ res: res, message: "email confirmed", status: 200, data: user })
         }
-
-
         return next(new Error("invalid-otp", { cause: 400 }))
-
-
     }
-
 )

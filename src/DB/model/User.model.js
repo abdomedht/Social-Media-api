@@ -15,7 +15,7 @@ export const genderValues = { male: "male", female: "female" }
  * @readonly
  * @enum {string}
  */
-export const roles = { admin: "male", user: "female" }
+export const roles = { admin: "admin", user: "user" }
 /**
  * Enum for provider types.
  * @readonly
@@ -50,7 +50,7 @@ const userSchema = new Schema({
     }, role: {
         type: String,
         enum: Object.values(roles),
-        default: genderValues.user
+        default: genderValues.roles
     },
     provider: {
         type: String,
