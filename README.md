@@ -27,8 +27,8 @@ A scalable backend service for a social media platform built with **Node.js**, *
    git clone [https://github.com/abdomedht/social-app.git](https://github.com/abdomedht/social-app.git)
 2.Install dependencies:
   ```bash
-   npm install
-3.Create a .env file in the root directory and add your configurations (see below).
+      npm install
+3.Create a .env file in the root directory and add your configurations (see below):
    Environment Variables
 To run this project, you will need to add the following environment variables to your .env file:
 
