@@ -30,7 +30,7 @@ A scalable backend service for a social media platform built with **Node.js**, *
       npm install
 3.Create a .env file in the root directory and add your configurations (see below):
    Environment Variables
-To run this project, you will need to add the following environment variables to your .env file:
+      To run this project, you will need to add the following environment variables to your .env file:
 
 PORT: 3000
 
