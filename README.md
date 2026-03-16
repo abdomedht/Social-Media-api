@@ -24,9 +24,8 @@ A scalable backend service for a social media platform built with **Node.js**, *
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone [[https://github.com/abdomedht/social-app.git](https://github.com/abdomedht/social-app.git)](https://github.com/abdomedht/Social-Media-api.git)
+   git clone [[[https://github.com/abdomedht/social-app.git](https://github.com/abdomedht/social-app.git)](https://github.com/abdomedht/Social-Media-api.git)](https://github.com/abdomedht/Social-Media-api.git)
 2.Install dependencies:
-   ```bash
       npm install
 
 
