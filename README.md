@@ -26,8 +26,9 @@ A scalable backend service for a social media platform built with **Node.js**, *
    ```bash
    git clone [https://github.com/abdomedht/social-app.git](https://github.com/abdomedht/social-app.git)
 2.Install dependencies:
-  ```bash
+   ```bash
       npm install
+
 
 3.Create a .env file in the root directory and add your configurations (see below):
    Environment Variables
@@ -43,7 +44,7 @@ A scalable backend service for a social media platform built with **Node.js**, *
 
    CLOUDINARY_CLOUD_NAME, API_KEY, API_SECRET: For media storage
 
-###📂 API Documentation & Testing
+📂 API Documentation & Testing
    The project includes a Postman Collection for easy testing.
 
    You can find the collection file in: /docs/socialapp.postman_collection.json
