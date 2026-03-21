@@ -1,7 +1,7 @@
 import { roles } from "../../DB/model/User.model.js"
 
 export const endpoint ={
-    create: [roles.admin, roles.user],
-    delete: [roles.admin],
+    create: [ roles.user],
+    freeze: [roles.admin,roles.user],
     update: [roles.admin, roles.user]
 }

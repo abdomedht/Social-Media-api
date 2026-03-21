@@ -24,10 +24,10 @@ export const tokenTypes = {
  * @returns {Promise<Object>} The user document.
  * @throws {Error} If the token is invalid or user not found.
  */
-export const decodeToken = async ({ autharization = "", tokenType = tokenTypes.access } = {}) => {
-    const [Bearer, token] = autharization.split(" ");
+export const decodeToken = async ({ Authorization = "", tokenType = tokenTypes.access } = {}) => {
+    const [Bearer, token] = Authorization.split(" ");
     if (!Bearer || !token) {
-        console.error("No token provided in authorization header:", autharization);
+        console.error("No token provided in authorization header:", Authorization);
         throw new Error("In-valid authorization");
     }
     let accessSignature;
