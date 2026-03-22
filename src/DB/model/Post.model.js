@@ -14,7 +14,7 @@ const postSchema = new Schema({
             return this.attachment?.length ? false : true;
         }
     },
-    attachment: [{ secur_url: String, public_id: String }],
+    attachment: [{ secure_url: String, public_id: String }],
     likes: [{ type: Types.ObjectId, ref: 'User' }],
     tags: [{ type: Types.ObjectId, ref: 'User' }],
     createdBy: { type: Types.ObjectId, ref: 'User', required: true },

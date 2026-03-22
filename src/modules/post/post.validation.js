@@ -66,3 +66,9 @@ export const freezePost = joi.object().keys({
 export const unfreezePost = joi.object().keys({
     postId: generalFeilds.id.required(),
 }).required()
+export const likePost = joi.object().keys({
+    postId: generalFeilds.id.required(),
+}).required()
+export const unlikePost = joi.object().keys({
+    postId: generalFeilds.id.required(),
+}).required()

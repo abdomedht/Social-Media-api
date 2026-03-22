@@ -5,6 +5,7 @@ import { cloud } from "../../../utils/multer/cloudinary.multer.js";
 import { asyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from "../../../utils/response/success.response.js";
 export const createPost = asyncHandler(async (req, res) => {
+  const {_id}=req.user
   let attachment = [];
   if (req.files?.length) {
     for (const file of req.files) {
@@ -13,15 +14,19 @@ export const createPost = asyncHandler(async (req, res) => {
           folder: `posts/${req.user._id}`
         });
 
-      attachment.push({ secure_url, public_id });
+      attachment.push({ secure_url, public_id,_id });
     }
   }
+  console.log(attachment)
   const post = await create({
     model: postModel,
     data: {
       content: req.body.content,
       attachment: attachment,
       createdBy: req.user._id
+    },
+    options: {
+      new: true
     }
   });
   return successResponse({ res, status: 201, message: "Post created successfully", data: { post } })
@@ -107,5 +112,46 @@ export const unfreezePost = asyncHandler(async (req, res, next) => {
   if (!post) {
     return next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
   }
-  return successResponse({ res, status: 200, message: "Post freezed successfully", data: { post } })
+  return successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } })
+});
+export const likePost = asyncHandler(async (req, res, next) => {
+  console.log(req.user._id)
+  const post = await findOneAndUpdate({
+    model: postModel,
+    filter: {
+      _id: req.params.postId,
+      isDeleted: { $exists: false },
+    },
+    data: {
+      $addToSet:{likes:req.user._id}
+    },
+    options: {
+      new: true
+    }
+  });
+
+  if (!post) {
+    return next(new Error("Post not found ", { cause: 404 }));
+  }
+  return successResponse({ res, status: 200, message: "success", data: { post } })
+});
+export const unlikePost = asyncHandler(async (req, res, next) => {
+  console.log(req.user._id)
+  const post = await findOneAndUpdate({
+    model: postModel,
+    filter: {
+      _id: req.params.postId,
+      isDeleted: { $exists: false },
+    },
+    data: {
+      $pull:{likes:req.user._id}
+    },
+    options: {
+      new: true
+    }
+  });
+  if (!post) {
+    return next(new Error("Post not found ", { cause: 404 }));
+  }
+  return successResponse({ res, status: 200, message: "success", data: { post } })
 });
