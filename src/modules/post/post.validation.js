@@ -72,3 +72,5 @@ export const likePost = joi.object().keys({
 export const unlikePost = joi.object().keys({
     postId: generalFeilds.id.required(),
 }).required()
+export const getPost = joi.object().keys({
+})

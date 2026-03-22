@@ -1,9 +1,29 @@
-import { create, findOneAndUpdate } from "../../../DB/dbService.js";
+import { create, findAll, findOneAndUpdate } from "../../../DB/dbService.js";
 import { postModel } from "../../../DB/model/Post.model.js";
 import { roles } from "../../../DB/model/User.model.js";
 import { cloud } from "../../../utils/multer/cloudinary.multer.js";
 import { asyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from "../../../utils/response/success.response.js";
+export const getPosts = asyncHandler(async (req, res) => {
+  
+  const post = await findAll({
+    model: postModel,
+    filter: {
+      isDeleted:{$exists:false}
+    },
+    populate:[
+      {
+        path:'createdBy',
+        select:"userName image"
+      }
+      ,{
+        path:'likes',
+        select:"userName image"
+      }
+    ]
+  });
+  return successResponse({ res, status: 201, message: "Post created successfully", data: { post } })
+});
 export const createPost = asyncHandler(async (req, res) => {
   const {_id}=req.user
   let attachment = [];
@@ -31,7 +51,6 @@ export const createPost = asyncHandler(async (req, res) => {
   });
   return successResponse({ res, status: 201, message: "Post created successfully", data: { post } })
 });
-
 export const updatePost = asyncHandler(async (req, res, next) => {
   let attachment = [];
   if (req.files?.length) {
