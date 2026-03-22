@@ -2,7 +2,7 @@
 import { asyncHandler } from "../utils/response/error.response.js";
 import { decodeToken } from "../utils/security/token.security.js";
 export const authentication = asyncHandler(async (req, res, next) => {
-    req.user = await decodeToken({ autharization: req.headers.autharization })
+    req.user = await decodeToken({ Authorization: req.headers.authorization })    
     return next()
 })
 export const authorization = (accessRoles) => {
