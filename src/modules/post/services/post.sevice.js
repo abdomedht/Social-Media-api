@@ -75,10 +75,7 @@ export const updatePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  if (!post) {
-    return next(new Error("Post not found or you don't have permission to edit it", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "Post updated successfully", data: { post } })
+  return post? successResponse({ res, status: 200, message: "Post updated successfully", data: { post } }): next(new Error("Post not found or you don't have permission to edit it", { cause: 404 }));
 });
 export const freezePost = asyncHandler(async (req, res, next) => {
   const owner = req.user.role === roles.admin ? {} : { createdBy: req.user._id }
@@ -98,13 +95,7 @@ export const freezePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  console.log(post);
-
-  if (!post) {
-    return next(new Error("Post not found or you don't have permission to freeze it", { cause: 404 }));
-  }
-
-  return successResponse({ res, status: 200, message: "Post freezed successfully", data: { post } })
+  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
 });
 export const unfreezePost = asyncHandler(async (req, res, next) => {
   console.log(req.user._id)
@@ -126,51 +117,20 @@ export const unfreezePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  console.log(post);
-
-  if (!post) {
-    return next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } })
+  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
 });
 export const likePost = asyncHandler(async (req, res, next) => {
-  console.log(req.user._id)
+const data =req.query.action==='unlike'?{$pull:{likes:req.user._id}}:{ $addToSet:{likes:req.user._id}}
   const post = await findOneAndUpdate({
     model: postModel,
     filter: {
       _id: req.params.postId,
       isDeleted: { $exists: false },
     },
-    data: {
-      $addToSet:{likes:req.user._id}
-    },
+    data,
     options: {
       new: true
     }
   });
-
-  if (!post) {
-    return next(new Error("Post not found ", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "success", data: { post } })
-});
-export const unlikePost = asyncHandler(async (req, res, next) => {
-  console.log(req.user._id)
-  const post = await findOneAndUpdate({
-    model: postModel,
-    filter: {
-      _id: req.params.postId,
-      isDeleted: { $exists: false },
-    },
-    data: {
-      $pull:{likes:req.user._id}
-    },
-    options: {
-      new: true
-    }
-  });
-  if (!post) {
-    return next(new Error("Post not found ", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "success", data: { post } })
+  return post? successResponse({ res, status: 200, message: "success", data: { post } }):next(new Error("Post not found ", { cause: 404 }));
 });

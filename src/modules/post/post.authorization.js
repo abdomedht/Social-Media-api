@@ -4,7 +4,6 @@ export const endpoint ={
     freeze: [roles.admin,roles.user],
     update: [roles.admin, roles.user],
     unfreeze:[roles.user,roles.admin],
-    likePost:[roles.user],
-    unlikePost:[roles.user,roles.admin],
+    like:[roles.user,roles.admin],
     getPost:[roles.user,roles.admin]
 }

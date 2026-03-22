@@ -15,7 +15,5 @@ router.post('/',authentication,authorization(endpoint.create),uploadCloudFile(fi
 router.patch('/:postId',authentication,authorization(endpoint.update),uploadCloudFile(fileValidations.image).array('attachment',2),validation(validators.updatePost),postService.updatePost)
 router.delete('/:postId',authentication,authorization(endpoint.freeze),validation(validators.freezePost),postService.freezePost)
 router.patch('/:postId/unfreeze',authentication,authorization(endpoint.unfreeze),validation(validators.unfreezePost),postService.unfreezePost)
-router.patch('/:postId/likePost',authentication,authorization(endpoint.likePost),validation(validators.likePost),postService.likePost)
-router.patch('/:postId/unlikePost',authentication,authorization(endpoint.unlikePost),validation(validators.unlikePost),postService.unlikePost)
-
+router.patch('/:postId/like',authentication,authorization(endpoint.like),validation(validators.like),postService.likePost)
 export default router;
