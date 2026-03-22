@@ -62,7 +62,7 @@ export const freezePost = asyncHandler(async (req, res, next) => {
     model: postModel,
     filter: {
       _id: req.params.postId,
-      isDeleted:  false ,
+      isDeleted: { $exists: false },
       ...owner,
     },
     data: {
@@ -75,10 +75,37 @@ export const freezePost = asyncHandler(async (req, res, next) => {
     }
   });
   console.log(post);
-  
+
   if (!post) {
     return next(new Error("Post not found or you don't have permission to freeze it", { cause: 404 }));
   }
 
+  return successResponse({ res, status: 200, message: "Post freezed successfully", data: { post } })
+});
+export const unfreezePost = asyncHandler(async (req, res, next) => {
+  console.log(req.user._id)
+  const post = await findOneAndUpdate({
+    model: postModel,
+    filter: {
+      _id: req.params.postId,
+      isDeleted: { $exists: true },
+      deletedBy: req.user._id
+    },
+    data: {
+      $unset: {
+        isDeleted: 0,
+        deletedBy: 0
+      },
+      ...req.body,
+    },
+    options: {
+      new: true
+    }
+  });
+  console.log(post);
+
+  if (!post) {
+    return next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
+  }
   return successResponse({ res, status: 200, message: "Post freezed successfully", data: { post } })
 });
