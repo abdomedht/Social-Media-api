@@ -6,10 +6,11 @@ import{validation} from '../../middleware/validation.middleware.js'
 import { authentication, authorization } from "../../middleware/auth.middleware.js";
 import { uploadCloudFile } from "../../utils/multer/cloud.multe.js";
 import { fileValidations } from "../../utils/multer/local.multer.js";
-
+import commentController from '../comment/comment.controller.js'
 
 
 const router = Router();
+router.use('/:postId/comment',commentController)
 router.get('/',authentication,authorization(endpoint.getPost),validation(validators.getPost),postService.getPosts)
 router.post('/',authentication,authorization(endpoint.create),uploadCloudFile(fileValidations.image).array('attachment',2),validation(validators.createPost),postService.createPost)
 router.patch('/:postId',authentication,authorization(endpoint.update),uploadCloudFile(fileValidations.image).array('attachment',2),validation(validators.updatePost),postService.updatePost)

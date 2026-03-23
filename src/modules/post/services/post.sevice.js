@@ -95,7 +95,8 @@ export const freezePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
+  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):
+  next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
 });
 export const unfreezePost = asyncHandler(async (req, res, next) => {
   console.log(req.user._id)
@@ -117,7 +118,8 @@ export const unfreezePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
+  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):
+  next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
 });
 export const likePost = asyncHandler(async (req, res, next) => {
 const data =req.query.action==='unlike'?{$pull:{likes:req.user._id}}:{ $addToSet:{likes:req.user._id}}
