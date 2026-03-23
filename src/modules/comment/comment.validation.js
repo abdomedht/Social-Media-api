@@ -55,3 +55,11 @@ export const update=joi.object().keys({
     
         isDeleted: joi.boolean().default(false)
 }).required()
+export const freeze=joi.object().keys({
+        postId:generalFeilds.id.required(),
+        commentId:generalFeilds.id.required(),
+}).required()
+export const unfreeze=joi.object().keys({
+        postId:generalFeilds.id.required(),
+        commentId:generalFeilds.id.required(),
+}).required()
