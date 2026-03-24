@@ -63,3 +63,9 @@ export const unfreeze=joi.object().keys({
         postId:generalFeilds.id.required(),
         commentId:generalFeilds.id.required(),
 }).required()
+export const like=joi.object().keys({
+        postId:generalFeilds.id.required(),
+        commentId:generalFeilds.id.required(),
+            action:joi.string().valid('like','unlike')
+        
+}).required()

@@ -91,7 +91,6 @@ export const updateComment = asyncHandler(async (req, res, next) => {
 })
 export const freezeComment = asyncHandler(async (req, res, next) => {
     const { postId, commentId } = req.params
-
     const comment = await findOne({
         model: commentModel,
         filter: {
@@ -170,3 +169,21 @@ export const unfreezeComment = asyncHandler(async (req, res, next) => {
         data: { comment: comment }
     })
 })
+export const likeComment = asyncHandler(async (req, res, next) => {
+    const data = req.query.action === 'unlike' ? { $pull: { likes: req.user._id } } : { $addToSet: { likes: req.user._id } }
+    const comment = await findOneAndUpdate({
+        model: commentModel,
+        filter: {
+            _id: req.params.commentId,
+            isDeleted: { $exists: false },
+        },
+        data,
+        options: {
+            new: true
+        },populate:{
+            path:'postId'
+        }
+    });
+
+    return comment||comment.postId.isDeleted==true ? successResponse({ res, status: 200, message: "success", data: { comment } }) : next(new Error("comment not found ", { cause: 404 }));
+});
