@@ -5,24 +5,36 @@ import { cloud } from "../../../utils/multer/cloudinary.multer.js";
 import { asyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from "../../../utils/response/success.response.js";
 export const getPosts = asyncHandler(async (req, res) => {
-  
-  const post = await findAll({
+  const posts = await findAll({
     model: postModel,
     filter: {
-      isDeleted:{$exists:false}
+      isDeleted: { $exists: false }
     },
-    populate:[
+    populate: [
       {
-        path:'createdBy',
-        select:"userName image"
-      }
-      ,{
-        path:'likes',
-        select:"userName image"
+        path: 'createdBy',
+        select: 'userName image'
+      },
+      {
+        path: 'likes',
+        select: 'userName image'
+      },
+      {
+        path: 'comments',
+        match: { isDeleted: { $exists: false } },
+        populate: {
+          path: 'createdBy',
+          select: 'userName image'
+        }
       }
     ]
   });
-  return successResponse({ res, status: 201, message: "Post created successfully", data: { post } })
+  return successResponse({
+    res,
+    status: 200,
+    message: "Posts fetched successfully",
+    data: posts
+  });
 });
 export const createPost = asyncHandler(async (req, res) => {
   const {_id}=req.user
