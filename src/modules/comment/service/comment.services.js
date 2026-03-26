@@ -3,11 +3,23 @@ import { successResponse } from '../../../utils/response/success.response.js'
 import { cloud } from '../../../utils/multer/cloudinary.multer.js'
 import { commentModel } from '../../../DB/model/comment.model.js'
 import { create, findOne, findOneAndUpdate } from '../../../DB/dbService.js'
-import { postModel } from '../../../DB/model/Post.model.js'
+import { postModel} from '../../../DB/model/Post.model.js'
 import { roles } from '../../../DB/model/User.model.js'
 // eslint-disable-next-line no-unused-vars
 export const createComment = asyncHandler(async (req, res, next) => {
-    const { postId } = req.params
+    const { postId,commentId } = req.params
+    if(commentId&& !await findOne({
+        model:commentModel,
+        filter:{
+            _id:commentId,
+            postId,
+            isDeleted:{$exists:false}
+        }
+
+    })){
+        return next(new Error('invalid perant comment ', { cause: 404 }))
+
+    }
     const post = await findOne({
         model: postModel,
         filter: {
@@ -34,8 +46,10 @@ export const createComment = asyncHandler(async (req, res, next) => {
             ...req.body,
             postId: postId,
             createdBy: req.user._id,
-            attachment
+            attachment,
+            commentId
         },
+ 
         options: {
             new: true
         }

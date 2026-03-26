@@ -22,10 +22,6 @@ export const generalFeilds = {
     id: joi.string().pattern(new RegExp(/^[0-9a-fA-F]{24}$/)),
     code: joi.string().length(5).pattern(/^[0-9]+$/),
 }
-
-
-
-
 /**
  * Middleware to validate request data using a Joi schema.
  * @param {import('joi').ObjectSchema} Schema - Joi validation schema.

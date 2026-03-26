@@ -6,7 +6,7 @@ import { fileValidations, uploadCloudFile } from "../../utils/multer/cloud.multe
 import { validation } from "../../middleware/validation.middleware.js";
 import *as validators  from "./comment.validation.js";
 const router= Router({mergeParams:true});
-router.post('/',authentication,authorization(endpoint.create),uploadCloudFile(fileValidations.image).array('attachment',2),validation(validators.create),commentService.createComment)
+router.post('/:commentId?',authentication,authorization(endpoint.create),uploadCloudFile(fileValidations.image).array('attachment',2),validation(validators.create),commentService.createComment)
 router.patch('/:commentId',authentication,authorization(endpoint.updateComment),uploadCloudFile(fileValidations.image).array('attachment',2),validation(validators.update),commentService.updateComment)
 router.delete('/:commentId',authentication,authorization(endpoint.freeze),validation(validators.freeze),commentService.freezeComment)
 router.patch('/:commentId/unfreeze',authentication,authorization(endpoint.unfreeze),validation(validators.unfreeze),commentService.unfreezeComment)

@@ -34,4 +34,4 @@ postSchema.virtual('comments',{
 })
 
 
-export const postModel = mongoose.model.User || model('Post', postSchema)
+export const postModel = mongoose.model.Post || model('Post', postSchema)
