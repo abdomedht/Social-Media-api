@@ -1,6 +1,6 @@
+import joi from "joi";
 import { generalFeilds } from "../../middleware/validation.middleware.js";
-import joi from 'joi';
-export const createPost = joi.object().keys({
+export const create = joi.object().keys({
     content: joi.string()
         .min(2)
         .max(50000)
@@ -16,10 +16,10 @@ export const createPost = joi.object().keys({
             public_id: joi.string().required()
         })
     ),
-
+    postId: generalFeilds.id.required(),
     likes: joi.array().items(generalFeilds.id),
-
     tags: joi.array().items(generalFeilds.id),
+    commentId: generalFeilds.id,
 
     createdBy: generalFeilds.id,
 
@@ -29,9 +29,7 @@ export const createPost = joi.object().keys({
 
     isDeleted: joi.boolean().default(false)
 }).required()
-
-export const updatePost = joi.object().keys({
-    postId: generalFeilds.id.required(),
+export const update = joi.object().keys({
     content: joi.string()
         .min(2)
         .max(50000)
@@ -47,29 +45,28 @@ export const updatePost = joi.object().keys({
             public_id: joi.string().required()
         })
     ),
-
+    postId: generalFeilds.id.required(),
     likes: joi.array().items(generalFeilds.id),
-
     tags: joi.array().items(generalFeilds.id),
-
+    commentId: generalFeilds.id.required(),
     createdBy: generalFeilds.id,
-
     updatedBy: generalFeilds.id.optional(),
 
     deletedBy: generalFeilds.id.optional(),
 
     isDeleted: joi.boolean().default(false)
 }).required()
-export const freezePost = joi.object().keys({
+export const freeze = joi.object().keys({
     postId: generalFeilds.id.required(),
+    commentId: generalFeilds.id.required(),
 }).required()
-export const unfreezePost = joi.object().keys({
+export const unfreeze = joi.object().keys({
     postId: generalFeilds.id.required(),
+    commentId: generalFeilds.id.required(),
 }).required()
 export const like = joi.object().keys({
     postId: generalFeilds.id.required(),
-    action:joi.string().valid('like','unlike')
-}).required()
+    commentId: generalFeilds.id.required(),
+    action: joi.string().valid('like', 'unlike')
 
-export const getPost = joi.object().keys({
-})
+}).required()

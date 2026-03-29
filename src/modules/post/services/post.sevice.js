@@ -1,9 +1,32 @@
-import { create, findOneAndUpdate } from "../../../DB/dbService.js";
+import { create, findAll, findOneAndUpdate } from "../../../DB/dbService.js";
 import { postModel } from "../../../DB/model/Post.model.js";
 import { roles } from "../../../DB/model/User.model.js";
 import { cloud } from "../../../utils/multer/cloudinary.multer.js";
 import { asyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from "../../../utils/response/success.response.js";
+export const getPosts = asyncHandler(async (req, res) => {
+  const posts = await findAll({
+    model: postModel,
+    filter: {
+      isDeleted: { $exists: false }
+    },
+    populate: [{path: 'comments',
+        match: { isDeleted: { $exists: false } },
+          populate:[{
+            path:'reply',
+            match:{ isDeleted: { $exists: false } }
+            }]
+      },
+      
+    ]}
+  );
+  return successResponse({
+    res,
+    status: 200,
+    message: "Posts fetched successfully",
+    data: posts
+  });
+});
 export const createPost = asyncHandler(async (req, res) => {
   const {_id}=req.user
   let attachment = [];
@@ -31,7 +54,6 @@ export const createPost = asyncHandler(async (req, res) => {
   });
   return successResponse({ res, status: 201, message: "Post created successfully", data: { post } })
 });
-
 export const updatePost = asyncHandler(async (req, res, next) => {
   let attachment = [];
   if (req.files?.length) {
@@ -56,10 +78,7 @@ export const updatePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  if (!post) {
-    return next(new Error("Post not found or you don't have permission to edit it", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "Post updated successfully", data: { post } })
+  return post? successResponse({ res, status: 200, message: "Post updated successfully", data: { post } }): next(new Error("Post not found or you don't have permission to edit it", { cause: 404 }));
 });
 export const freezePost = asyncHandler(async (req, res, next) => {
   const owner = req.user.role === roles.admin ? {} : { createdBy: req.user._id }
@@ -71,7 +90,7 @@ export const freezePost = asyncHandler(async (req, res, next) => {
       ...owner,
     },
     data: {
-      isDeleted: true,
+      isDeleted: Date.now(),
       ...req.body,
       deletedBy: req.user._id
     },
@@ -79,13 +98,8 @@ export const freezePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  console.log(post);
-
-  if (!post) {
-    return next(new Error("Post not found or you don't have permission to freeze it", { cause: 404 }));
-  }
-
-  return successResponse({ res, status: 200, message: "Post freezed successfully", data: { post } })
+  return post? successResponse({ res, status: 200, message: "Post freezed successfully", data: { post } }):
+  next(new Error("Post not found or you don't have permission to freeze it", { cause: 404 }));
 });
 export const unfreezePost = asyncHandler(async (req, res, next) => {
   console.log(req.user._id)
@@ -107,51 +121,21 @@ export const unfreezePost = asyncHandler(async (req, res, next) => {
       new: true
     }
   });
-  console.log(post);
-
-  if (!post) {
-    return next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } })
+  return post? successResponse({ res, status: 200, message: "Post unfreezed successfully", data: { post } }):
+  next(new Error("Post not found or you don't have permission to unfreeze it", { cause: 404 }));
 });
 export const likePost = asyncHandler(async (req, res, next) => {
-  console.log(req.user._id)
+const data =req.query.action==='unlike'?{$pull:{likes:req.user._id}}:{ $addToSet:{likes:req.user._id}}
   const post = await findOneAndUpdate({
     model: postModel,
     filter: {
       _id: req.params.postId,
       isDeleted: { $exists: false },
     },
-    data: {
-      $addToSet:{likes:req.user._id}
-    },
+    data,
     options: {
       new: true
     }
   });
-
-  if (!post) {
-    return next(new Error("Post not found ", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "success", data: { post } })
-});
-export const unlikePost = asyncHandler(async (req, res, next) => {
-  console.log(req.user._id)
-  const post = await findOneAndUpdate({
-    model: postModel,
-    filter: {
-      _id: req.params.postId,
-      isDeleted: { $exists: false },
-    },
-    data: {
-      $pull:{likes:req.user._id}
-    },
-    options: {
-      new: true
-    }
-  });
-  if (!post) {
-    return next(new Error("Post not found ", { cause: 404 }));
-  }
-  return successResponse({ res, status: 200, message: "success", data: { post } })
+  return post? successResponse({ res, status: 200, message: "success", data: { post } }):next(new Error("Post not found ", { cause: 404 }));
 });
