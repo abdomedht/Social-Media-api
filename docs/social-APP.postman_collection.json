@@ -10,221 +10,241 @@
       "name": "auth",
       "item": [
         {
-          "name": "sign-up",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"userName\":\"abdo medhat\",\r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"password\":\"17122001Mn\",\r\n    \"confirmPassword\":\"17122001Mn\",\r\n    \"phone\":\"01013862354\",\r\n    \"gender\":\"male\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+          "name": "sign up",
+          "item": [
+            {
+              "name": "sign-up",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userName\":\"abdo medhat\",\r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"password\":\"17122001Mn\",\r\n    \"confirmPassword\":\"17122001Mn\",\r\n    \"phone\":\"01013862354\",\r\n    \"gender\":\"male\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/auth/signup",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "auth",
+                    "signup"
+                  ]
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/auth/signup",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "auth",
-                "signup"
-              ]
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
           "name": "login",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"password\":\"17122001Ma\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+          "item": [
+            {
+              "name": "login",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"password\":\"17122001Ma\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
                 }
-              }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "{{base_url}}/auth/login",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
+            {
+              "name": "socialLogin",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\r\n    \"idToken\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6ImZhMDcyZjc1Nzg0NjQyNjE1MDg3YzcxODJjMTAxMzQxZTE4ZjdhM2EiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2MDUxNDE4MTcxMzAtcDNyOGpyY3VraWJjOWVoczY2ZGwzbHM5Ym4xZ2phMG8uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2MDUxNDE4MTcxMzAtcDNyOGpyY3VraWJjOWVoczY2ZGwzbHM5Ym4xZ2phMG8uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDAyNzc4MzMwNDc3MDc0MTQ5MzciLCJlbWFpbCI6ImFtMjc0OTczOUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzM4NTA4NTE3LCJuYW1lIjoiQWJkbyBNZWRoYXQiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTGViWDhhMmU5eDM4Tkx0TW5POTR3cnl2S2RWc3pNWFRMZThYNjZJUmFBeFRQbHQ2d0Q9czk2LWMiLCJnaXZlbl9uYW1lIjoiQWJkbyIsImZhbWlseV9uYW1lIjoiTWVkaGF0IiwiaWF0IjoxNzM4NTA4ODE3LCJleHAiOjE3Mzg1MTI0MTcsImp0aSI6IjVjZWY3NTk3MWFjYmI1NzAzMGRjMGZlOGNlMDNkMTRmZDE0ZmU3MmMifQ.O_FijQWJons6YGakXiM5RcB9WCcwHVTsJq-NbbwZjGigo2JcpUIKw_kZOQ0dyxgHbHFqKYO8Eb96ZZKFKcHKDJ4vj76wJWzVo7dWzLQUaxLd7K1G_NgaNZ_vSP9jOHPyt16xkvcxbxyc8YPUQhrFSu7WEySBQqatFeI1F864_HrM3uIRUBEoZ_K4zPsxpz3Gk2EfgtSaAZQ-dT8MR7_nls9hY-XNB5dIExA2ZaB6BYr1OYvJQiIrAZ24zZ6iSe5I31goebVAQt2D92ZTwf8-12JVDh8yBKMF727t6wxxPcLv61Hk1VwxoaP4WY6sbO4zWusbz5WR9BIwP51hJu3yVQ\"\r\n    \r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/auth/loginWithGmail",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "auth",
+                    "loginWithGmail"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "refresh-token",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk2ZjAyOGVjYjNmMGQ0YjJmMzZkOGUiLCJpYXQiOjE3NzE0OTk2MzgsImV4cCI6MTgwMzA1NzIzOH0.RvAeCBSNWizq31A9t3jWRHk5ciEB0MsklQCdjXL211w",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/auth/refresh-token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "auth",
+                    "refresh-token"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "socialLogin",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\r\n    \"idToken\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6ImZhMDcyZjc1Nzg0NjQyNjE1MDg3YzcxODJjMTAxMzQxZTE4ZjdhM2EiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2MDUxNDE4MTcxMzAtcDNyOGpyY3VraWJjOWVoczY2ZGwzbHM5Ym4xZ2phMG8uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2MDUxNDE4MTcxMzAtcDNyOGpyY3VraWJjOWVoczY2ZGwzbHM5Ym4xZ2phMG8uYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDAyNzc4MzMwNDc3MDc0MTQ5MzciLCJlbWFpbCI6ImFtMjc0OTczOUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzM4NTA4NTE3LCJuYW1lIjoiQWJkbyBNZWRoYXQiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTGViWDhhMmU5eDM4Tkx0TW5POTR3cnl2S2RWc3pNWFRMZThYNjZJUmFBeFRQbHQ2d0Q9czk2LWMiLCJnaXZlbl9uYW1lIjoiQWJkbyIsImZhbWlseV9uYW1lIjoiTWVkaGF0IiwiaWF0IjoxNzM4NTA4ODE3LCJleHAiOjE3Mzg1MTI0MTcsImp0aSI6IjVjZWY3NTk3MWFjYmI1NzAzMGRjMGZlOGNlMDNkMTRmZDE0ZmU3MmMifQ.O_FijQWJons6YGakXiM5RcB9WCcwHVTsJq-NbbwZjGigo2JcpUIKw_kZOQ0dyxgHbHFqKYO8Eb96ZZKFKcHKDJ4vj76wJWzVo7dWzLQUaxLd7K1G_NgaNZ_vSP9jOHPyt16xkvcxbxyc8YPUQhrFSu7WEySBQqatFeI1F864_HrM3uIRUBEoZ_K4zPsxpz3Gk2EfgtSaAZQ-dT8MR7_nls9hY-XNB5dIExA2ZaB6BYr1OYvJQiIrAZ24zZ6iSe5I31goebVAQt2D92ZTwf8-12JVDh8yBKMF727t6wxxPcLv61Hk1VwxoaP4WY6sbO4zWusbz5WR9BIwP51hJu3yVQ\"\r\n    \r\n    \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+          "name": "confirm email",
+          "item": [
+            {
+              "name": "confirm-email",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"code\":\"76205\"\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/auth/confirm-email",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "auth",
+                    "confirm-email"
+                  ]
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/auth/loginWithGmail",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "auth",
-                "loginWithGmail"
-              ]
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "refresh-token",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk2ZjAyOGVjYjNmMGQ0YjJmMzZkOGUiLCJpYXQiOjE3NzE0OTk2MzgsImV4cCI6MTgwMzA1NzIzOH0.RvAeCBSNWizq31A9t3jWRHk5ciEB0MsklQCdjXL211w",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
+          "name": "password",
+          "item": [
+            {
+              "name": "forget-password",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\"\r\n    \r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/auth/forget-password",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "auth",
+                    "forget-password"
+                  ]
                 }
-              }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "http://localhost:3000/auth/refresh-token",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "auth",
-                "refresh-token"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "confirm-email",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"code\":\"76205\"\r\n    \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+            {
+              "name": "reset-password",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"code\":\"73569\",\r\n    \"password\":\"17122001Ma\"\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/reset-password",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "reset-password"
+                  ]
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/auth/confirm-email",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "auth",
-                "confirm-email"
-              ]
+              },
+              "response": []
             }
-          },
-          "response": []
-        },
-        {
-          "name": "forget-password",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\"\r\n    \r\n    \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/auth/forget-password",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "auth",
-                "forget-password"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "reset-password",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \r\n    \"email\":\"abdulrahmanmedhat635@gmail.com\",\r\n    \"code\":\"73569\",\r\n    \"password\":\"17122001Ma\"\r\n    \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{base_url}}/auth/reset-password",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "auth",
-                "reset-password"
-              ]
-            }
-          },
-          "response": []
+          ]
         }
       ]
     },
@@ -232,274 +252,284 @@
       "name": "user",
       "item": [
         {
-          "name": "profile",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/user/profile",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "user",
-                "profile"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "shareProfile",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk4MzI0ZTg5NjU2MGNkNTY3NDc0NmMiLCJpYXQiOjE3NzE1ODYyOTQsImV4cCI6MTc3MTU4OTg5NH0.qQ0IgEMdRGBlmCkBWvKF9DJl0f9bn6IQBijY4ctnzt8",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "http://localhost:3000/user/profile/:profileId",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                "profile",
-                ":profileId"
-              ],
-              "variable": [
-                {
-                  "key": "profileId",
-                  "value": "6998324e896560cd5674746c"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update email",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM3OTUxZjVlNTQwNjk3M2RiMGViNzUiLCJpYXQiOjE3NDg1MTkwOTksImV4cCI6MTc0ODUyMjY5OX0.Z8v64o299IAmPEX4zn6EdWXOsRA0Bp2oM6Us-0hLWTU",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"email\":\"abdulrahmanmedhat65@gmail.com\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/user/profile/update-email",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                "profile",
-                "update-email"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update password",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM4ODVjZGM1NTQ2YzRhNmEyMDhkZTIiLCJpYXQiOjE3NDg1MzQ3NjMsImV4cCI6MTc0ODUzODM2M30.eL41Mzq4Zc37Yw-wlnM6XRdAGufqrn9xVpsoWriT7vI",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"oldPassword\":\"17122001Mn\",\r\n    \"Password\":\"17122001An\",\r\n    \"confirmPassword\":\"17122001An\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/user/profile/update-password",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                "profile",
-                "update-password"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update profile",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM4ODVjZGM1NTQ2YzRhNmEyMDhkZTIiLCJpYXQiOjE3NDg1MzQ3NjMsImV4cCI6MTc0ODUzODM2M30.eL41Mzq4Zc37Yw-wlnM6XRdAGufqrn9xVpsoWriT7vI",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"oldPassword\":\"17122001Mn\",\r\n    \"Password\":\"17122001An\",\r\n    \"confirmPassword\":\"17122001An\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/user/profile/update-profile",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                "profile",
-                "update-profile"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update profile image",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM4ODVjZGM1NTQ2YzRhNmEyMDhkZTIiLCJpYXQiOjE3NDg1MzQ3NjMsImV4cCI6MTc0ODUzODM2M30.eL41Mzq4Zc37Yw-wlnM6XRdAGufqrn9xVpsoWriT7vI",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"oldPassword\":\"17122001Mn\",\r\n    \"Password\":\"17122001An\",\r\n    \"confirmPassword\":\"17122001An\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/user/profile/update-profile",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                "profile",
-                "update-profile"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update cover images",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk4MzI0ZTg5NjU2MGNkNTY3NDc0NmMiLCJpYXQiOjE3NzIyNzY4MzcsImV4cCI6MTc3MjI4MDQzN30.urA63oxhT58cJJtOmS1rGZltXcPznsW-1GgIc2SsRZs",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "image",
-                  "type": "file",
-                  "uuid": "c8fa26c1-ae18-4ffd-aa24-8fe3bc774142",
-                  "src": [
-                    "/C:/Users/abdo1/OneDrive/Desktop/Cat03.jpg",
-                    "/C:/Users/abdo1/OneDrive/Desktop/Cat03.jpg",
-                    "/C:/Users/abdo1/OneDrive/Desktop/Cat03.jpg"
+          "name": "get",
+          "item": [
+            {
+              "name": "profile",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/user/profile",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "profile"
                   ]
                 }
-              ]
+              },
+              "response": []
             },
-            "url": {
-              "raw": "http://localhost:3000/user/profile/update-profile/image/cover",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "user",
-                "profile",
-                "update-profile",
-                "image",
-                "cover"
-              ]
+            {
+              "name": "shareProfile",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "autharization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk4MzI0ZTg5NjU2MGNkNTY3NDc0NmMiLCJpYXQiOjE3NzE1ODYyOTQsImV4cCI6MTc3MTU4OTg5NH0.qQ0IgEMdRGBlmCkBWvKF9DJl0f9bn6IQBijY4ctnzt8",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://localhost:3000/user/profile/:profileId",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    "profile",
+                    ":profileId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "profileId",
+                      "value": "6998324e896560cd5674746c"
+                    }
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
+        },
+        {
+          "name": "update",
+          "item": [
+            {
+              "name": "update email",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "autharization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM3OTUxZjVlNTQwNjk3M2RiMGViNzUiLCJpYXQiOjE3NDg1MTkwOTksImV4cCI6MTc0ODUyMjY5OX0.Z8v64o299IAmPEX4zn6EdWXOsRA0Bp2oM6Us-0hLWTU",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"abdulrahmanmedhat65@gmail.com\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/user/profile/update-email",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    "profile",
+                    "update-email"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update password",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "autharization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM4ODVjZGM1NTQ2YzRhNmEyMDhkZTIiLCJpYXQiOjE3NDg1MzQ3NjMsImV4cCI6MTc0ODUzODM2M30.eL41Mzq4Zc37Yw-wlnM6XRdAGufqrn9xVpsoWriT7vI",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"oldPassword\":\"17122001Mn\",\r\n    \"Password\":\"17122001An\",\r\n    \"confirmPassword\":\"17122001An\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/user/profile/update-password",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    "profile",
+                    "update-password"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update profile",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "autharization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM4ODVjZGM1NTQ2YzRhNmEyMDhkZTIiLCJpYXQiOjE3NDg1MzQ3NjMsImV4cCI6MTc0ODUzODM2M30.eL41Mzq4Zc37Yw-wlnM6XRdAGufqrn9xVpsoWriT7vI",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"oldPassword\":\"17122001Mn\",\r\n    \"Password\":\"17122001An\",\r\n    \"confirmPassword\":\"17122001An\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/user/profile/update-profile",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    "profile",
+                    "update-profile"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update profile image",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "autharization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODM4ODVjZGM1NTQ2YzRhNmEyMDhkZTIiLCJpYXQiOjE3NDg1MzQ3NjMsImV4cCI6MTc0ODUzODM2M30.eL41Mzq4Zc37Yw-wlnM6XRdAGufqrn9xVpsoWriT7vI",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"oldPassword\":\"17122001Mn\",\r\n    \"Password\":\"17122001An\",\r\n    \"confirmPassword\":\"17122001An\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/user/profile/update-profile",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    "profile",
+                    "update-profile"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update cover images",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "autharization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk4MzI0ZTg5NjU2MGNkNTY3NDc0NmMiLCJpYXQiOjE3NzIyNzY4MzcsImV4cCI6MTc3MjI4MDQzN30.urA63oxhT58cJJtOmS1rGZltXcPznsW-1GgIc2SsRZs",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "c8fa26c1-ae18-4ffd-aa24-8fe3bc774142",
+                      "src": [
+                        "/C:/Users/abdo1/OneDrive/Desktop/Cat03.jpg",
+                        "/C:/Users/abdo1/OneDrive/Desktop/Cat03.jpg",
+                        "/C:/Users/abdo1/OneDrive/Desktop/Cat03.jpg"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/user/profile/update-profile/image/cover",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "user",
+                    "profile",
+                    "update-profile",
+                    "image",
+                    "cover"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
         }
       ]
     },
@@ -507,95 +537,620 @@
       "name": "post",
       "item": [
         {
-          "name": "create-post",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "{{token}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "attachment",
-                  "type": "file",
-                  "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
-                  "src": "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+          "name": "create",
+          "item": [
+            {
+              "name": "create-post",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538",
+                      "disabled": true
+                    }
+                  ]
                 },
-                {
-                  "key": "content",
-                  "value": "\"sdkajkakakjsdas\"",
-                  "type": "text",
-                  "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538",
-                  "disabled": true
+                "url": {
+                  "raw": "{{base_url}}/post",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
                 }
-              ]
-            },
-            "url": {
-              "raw": "{{base_url}}/post",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "post"
-              ]
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "update-post",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "autharization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTk4MzI0ZTg5NjU2MGNkNTY3NDc0NmMiLCJpYXQiOjE3NzM1ODcxNTMsImV4cCI6MTc3MzU5MDc1M30.LCUDigrSc5Usm8AqZ8SVAY2U_C68nJyW23DbwWyp3qw",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "attachment",
-                  "type": "file",
-                  "uuid": "2d770dd6-e92b-403a-bbc0-7419c4347b31",
-                  "src": "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344"
+          "name": "get",
+          "item": [
+            {
+              "name": "get all posts",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538",
+                      "disabled": true
+                    }
+                  ]
                 },
-                {
-                  "key": "content",
-                  "value": "\"dfdffdddddddddddd1\"",
-                  "type": "text",
-                  "uuid": "20ab8b45-6384-4130-94df-35b408e9a66d",
-                  "disabled": true
+                "url": {
+                  "raw": "{{base_url}}/post",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
                 }
-              ]
-            },
-            "url": {
-              "raw": "http://localhost:3000/post/:post_id",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "post",
-                ":post_id"
-              ],
-              "variable": [
-                {
-                  "key": "post_id",
-                  "value": "69b6cb01eabf2f1050913e5c"
-                }
-              ]
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
+        },
+        {
+          "name": "update",
+          "item": [
+            {
+              "name": "update-post",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "2d770dd6-e92b-403a-bbc0-7419c4347b31",
+                      "src": "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344"
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"dfdffdddddddddddd1\"",
+                      "type": "text",
+                      "uuid": "20ab8b45-6384-4130-94df-35b408e9a66d"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/post/:post_id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "post",
+                    ":post_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "freeze",
+          "item": [
+            {
+              "name": "freeze-post",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "2d770dd6-e92b-403a-bbc0-7419c4347b31",
+                      "src": "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344"
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"dfdffdddddddddddd1\"",
+                      "type": "text",
+                      "uuid": "20ab8b45-6384-4130-94df-35b408e9a66d",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/post/:post_id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "post",
+                    ":post_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "unfreeze-post",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "2d770dd6-e92b-403a-bbc0-7419c4347b31",
+                      "src": "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344"
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"dfdffdddddddddddd1\"",
+                      "type": "text",
+                      "uuid": "20ab8b45-6384-4130-94df-35b408e9a66d",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/post/:post_id/unfreeze",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "unfreeze"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "like",
+          "item": [
+            {
+              "name": "like-post",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "2d770dd6-e92b-403a-bbc0-7419c4347b31",
+                      "src": "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344"
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"dfdffdddddddddddd1\"",
+                      "type": "text",
+                      "uuid": "20ab8b45-6384-4130-94df-35b408e9a66d",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:3000/post/:post_id/freeze",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "freeze"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "comment",
+      "item": [
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "create-comment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": [
+                        "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344",
+                        "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                      ]
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/post/:post_id/comment",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "comment"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "item": [
+            {
+              "name": "update-comment",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": [
+                        "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344",
+                        "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                      ]
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas111111111111111111111111\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/post/:post_id/comment/:commentId",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "comment",
+                    ":commentId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    },
+                    {
+                      "key": "commentId",
+                      "value": "69c097ef2524224d6cba1915"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "freeze",
+          "item": [
+            {
+              "name": "unfreeze-comment",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": [
+                        "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344",
+                        "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                      ]
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas111111111111111111111111\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/post/:post_id/comment/:commentId/unfreeze",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "comment",
+                    ":commentId",
+                    "unfreeze"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    },
+                    {
+                      "key": "commentId",
+                      "value": "69c172d190084d4db2674021"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "freeze-comment",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": [
+                        "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344",
+                        "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                      ],
+                      "disabled": true
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas111111111111111111111111\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/post/:post_id/comment/:commentId",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "comment",
+                    ":commentId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    },
+                    {
+                      "key": "commentId",
+                      "value": "69c172d190084d4db2674021"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "like",
+          "item": [
+            {
+              "name": "like-comment",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "attachment",
+                      "type": "file",
+                      "uuid": "1580368e-6fe7-471a-aba2-99e4f1e13b8b",
+                      "src": [
+                        "postman-cloud:///1f119628-0c26-4930-aea0-f6d5d94ee344",
+                        "postman-cloud:///1eec66b5-dd22-4ec0-9195-9cdd71726404"
+                      ],
+                      "disabled": true
+                    },
+                    {
+                      "key": "content",
+                      "value": "\"sdkajkakakjsdas111111111111111111111111\"",
+                      "type": "text",
+                      "uuid": "84d3e126-cccb-4737-a4f3-d009654e6538",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/post/:post_id/comment/:commentId",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "post",
+                    ":post_id",
+                    "comment",
+                    ":commentId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "post_id",
+                      "value": "69bb64a819d3c05b1e5a97c6"
+                    },
+                    {
+                      "key": "commentId",
+                      "value": "69c172d190084d4db2674021"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
