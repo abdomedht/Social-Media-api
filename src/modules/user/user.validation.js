@@ -4,6 +4,7 @@
  */
 import Joi from "joi";
 import { generalFeilds } from "../../middleware/validation.middleware.js";
+import { roles } from "../../DB/model/User.model.js";
 
 /**
  * Validation schema for updating profile image
@@ -58,4 +59,8 @@ export const updateProfileV = Joi.object({
   dateOfBrith: generalFeilds.dateOfBrith, // سيبه زي ما هو لو مستخدمه
   phone: generalFeilds.phone,
   gender: generalFeilds.gender,
+}).required();
+export const changeRoleV = Joi.object({
+  userId:generalFeilds.id,
+  role:Joi.string().valid(roles.user,roles.admin,roles.superAdmin)
 }).required();

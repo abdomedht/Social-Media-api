@@ -49,11 +49,12 @@
    */
 import { asyncHandler } from "../../../utils/response/error.response.js";
 import { successResponse } from "../../../utils/response/success.response.js";
-import { findOneAndUpdate, findOne, updateOne } from "../../../DB/dbService.js"
-import { userModel } from "../../../DB/model/User.model.js";
+import { findOneAndUpdate, findOne, updateOne, findAll } from "../../../DB/dbService.js"
+import { roles, userModel } from "../../../DB/model/User.model.js";
 import { emailEvent } from "../../../utils/events/email.event.js"
 import { compareHash, generateHash } from "../../../utils/security/hash.security.js";
 import { cloud } from "../../../utils/multer/cloudinary.multer.js";
+import { postModel } from "../../../DB/model/Post.model.js";
 /**
  * Gets the authenticated user's profile.
  * @function
@@ -63,10 +64,41 @@ export const profile = asyncHandler(
         return successResponse({ res, message: "hello", data: { user: req.user } })
     }
 )
-/**
- * Shares a user's profile with another user.
- * @function
- */
+export const dashboard = asyncHandler(
+    async (req, res) => {
+        const result = await Promise.allSettled([
+            findAll({
+                model: userModel,
+                filter: {}
+            }), findAll({
+                model: postModel,
+                filter: {}
+            }),
+        ])
+        return successResponse({ res, message: "dashboard data", data: { result } })
+    }
+)
+export const changeRole = asyncHandler(
+    async (req, res) => {
+        const { userId } = req.params;
+        const { role } = req.body
+        const roleU = req.user.role === roles.superAdmin ? { role: { $nin: [roles.superAdmin] } } : { role: { $nin: [roles.superAdmin, roles.admin] } }
+        const user = await findOneAndUpdate({
+            model: userModel,
+            filter: {
+                _id: userId,
+                ...roleU,
+            },
+            data: {
+                role,
+                updatedBy: req.user._id
+            },
+
+            options: { new: true }
+        })
+        return successResponse({ res, message: "dashboard data", data: { user } })
+    }
+)
 export const shareProfile = asyncHandler(
     async (req, res, next) => {
         const { profileId } = req.params

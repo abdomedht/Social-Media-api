@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 /**
  * Authentication and login services for users.
  * @module modules/auth/service/login.service
@@ -29,15 +31,12 @@ export const login = asyncHandler(
         if (!match) {
             return next(new Error("in-valid password", { cause: 400 }))
         }
-        const accessToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN, expiresIn: '1h' })
-        const refreshToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN, expiresIn: '1y' })
+        const accessToken = generateToken({ payload: { userId: user._id }, signature: [roles.admin ,roles.superAdmin].includes(user.role) ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN, expiresIn: '1h' })
+        const refreshToken = generateToken({ payload: { userId: user._id }, signature: [roles.admin,roles.superAdmin].includes(user.role) ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN, expiresIn: '1y' })
         return successResponse({ res: res, message: "login success", status: 200, data: { accessToken, refreshToken } })
     }
 )
-/**
- * Logs in a user with Google OAuth2.
- * @function
- */
+
 export const loginWithGmail = asyncHandler(
     async (req, res, next) => {
         const { idToken } = req.body;
@@ -78,7 +77,7 @@ export const loginWithGmail = asyncHandler(
 export const refreshToken = asyncHandler(
     async (req, res, next) => {
         const user = await decodeToken({authorization:req.headers.authorization,tokenType:tokenTypes.refresh})
-        const accessToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN, expiresIn: '1h' })
+        const accessToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_ACCESS_TOKEN : process.env.USER_ACCESS_TOKEN, expiresIn: '6h' })
         const refreshToken = generateToken({ payload: { userId: user._id }, signature: user.role === roles.admin ? process.env.SYSTEM_REFRESH_TOKEN : process.env.USER_REFRESH_TOKEN, expiresIn: '1y' })
         return successResponse({ res: res, message: "success", status: 200, data: { accessToken, refreshToken } })
     }

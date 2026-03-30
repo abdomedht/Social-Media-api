@@ -15,7 +15,7 @@ export const genderValues = { male: "male", female: "female" }
  * @readonly
  * @enum {string}
  */
-export const roles = { admin: "admin", user: "user" }
+export const roles = { admin: "admin", user: "user",superAdmin:"superAdmin" }
 /**
  * Enum for provider types.
  * @readonly
@@ -75,6 +75,12 @@ const userSchema = new Schema({
             time: { type: Date, default: Date.now }
         }
     ],
+    updatedBy: 
+        {
+            userId: { type: Schema.Types.ObjectId, ref: "User" },
+            
+        }
+    
 
 },
     { timestamps: true }

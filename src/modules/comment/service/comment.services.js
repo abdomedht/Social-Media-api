@@ -5,7 +5,6 @@ import { commentModel } from '../../../DB/model/comment.model.js'
 import { create, findOne, findOneAndUpdate } from '../../../DB/dbService.js'
 import { postModel} from '../../../DB/model/Post.model.js'
 import { roles } from '../../../DB/model/User.model.js'
-// eslint-disable-next-line no-unused-vars
 export const createComment = asyncHandler(async (req, res, next) => {
     const { postId,commentId } = req.params
     if(commentId&& !await findOne({
@@ -49,7 +48,6 @@ export const createComment = asyncHandler(async (req, res, next) => {
             attachment,
             commentId
         },
- 
         options: {
             new: true
         }
